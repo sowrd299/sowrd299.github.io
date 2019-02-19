@@ -7,6 +7,54 @@
     width: 60%;
 }
 
+/* animated hand-fanning */
+.sampleHand{
+    padding: 64px;
+    padding-bottom: 0px;
+    padding-top: 10px;
+    margin-bottom: -524; /* moves back up the bottom of all the empty space from the images actual positions */
+}
+
+.card{
+    position: relative;
+    transition: all ease 0.5s;
+}
+
+#cardLeft{
+    bottom: -5px;
+    left: -20px;
+    transform: rotate(-10deg);
+}
+
+#cardLeft:hover{
+    bottom: 0px;
+    left: -40px;
+    transform: rotate(-30deg);
+}
+
+#cardRight{
+    bottom: 257px; /* rasing up to overlap card left */
+    right: -20px;
+    transform: rotate(10deg);
+}
+
+#cardRight:hover{
+    bottom: 262px;
+    right: -40px;
+    transform: rotate(30deg);
+}
+
+#cardCenter{ /* raising up to overlap both side cards */
+    bottom: 524px;
+    transform: rotate(5deg);
+}
+
+#cardCenter:hover{
+    bottom: 534px;
+    transform: rotate(0deg);
+}
+
+/* the about section */
 .about{
     margin: 32px;
     margin-top: 0px;
