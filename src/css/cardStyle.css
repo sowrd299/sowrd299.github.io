@@ -3,6 +3,8 @@
     display: flex; 
     padding: 2.5%;
     margin: 7.5%;
+    margin-bottom: 3.75%;
+    margin-top: 3.75%;
     border-radius: 8px;
     width: 60%;
 }
