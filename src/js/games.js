@@ -3,9 +3,9 @@ var gameHtml = " \
 <script src='./games/{0}/portfolio.js'></script> \
 <div id='gameTemplate' class='game'> \
     <div class='sampleHand'> \
-        <img id='cardLeft' class='card' src='./games/{0}/Card.png' height='262' width='187'/> \
-        <img id='cardRight' class='card' src='./games/{0}/Card.png' height='262' width='187'/> \
-        <img id='cardCenter' class='card' src='./games/{0}/Card.png' height='262' width='187'/> \
+        <img id='cardLeft' class='card' src='./games/{0}/CardL.png' height='262' width='187'/> \
+        <img id='cardRight' class='card' src='./games/{0}/CardR.png' height='262' width='187'/> \
+        <img id='cardCenter' class='card' src='./games/{0}/CardC.png' height='262' width='187'/> \
     </div> \
     <div class='about'> \
     <span id='title{0}' class='title'>{0}</span> \
@@ -29,6 +29,21 @@ var games = [
     name: "Reapers",
     title: "Reapers",
     blip: "Reapers is an attempt to incorpate a handleful of mechanics from modern CCG's that I particularly like, such as persistent resources and deckbuilding centered around specific characters, and modern modern fantasy theme. The game is a medium-heavy strategy game, that prioritizes being strategic, and thematically compelling. The biggest problem it it is currently facing is the power of the Malakhim; while tthese cards have a roll to play in progressing the game through mid, early and late game, too often the player who draws more Malakhim also wins. I hope to find a satisfactory system for playing Malakhim that is more consistent than drawing them from the deck. The game also has a length issue; it tends to overstay it's welcome somewhat, but this seems mostly to be a matter of finding the sweet spot for the win condition."
+},
+{
+    name: "ChildhoodFears",
+    title: "Facing wour Childhood Fears: the Card Game",
+    blip: ""
+},
+{
+    name: "Allocator",
+    title: "Allocator",
+    blip: ""
+},
+{
+    name: "Thirteen",
+    title: "Thirteen",
+    blip: ""
 }
 ];
 
@@ -41,7 +56,7 @@ function loadGameText(gameName, game){
 // the function to be called in the body
 function populateGames(){
     var gamesDive = document.getElementById("games");
-    for(var i = 0; i < gameNames.length; i++){
+    for(var i = 0; i < games.length; i++){
         // add in the title where needed
         var html = gameHtml.replace(/\{0\}/g, games[i].name);
         // add the game into the html
