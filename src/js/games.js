@@ -2,9 +2,8 @@
 
 // constants
 var gameHtml = " \
-<script src='./games/{0}/portfolio.js'></script> \
-<div id='gameTemplate' class='game'> \
-    <div class='sampleHand'> \
+<div id='gameTemplate{0}' class='game'> \
+    <div id='hand{0}' class='sampleHand'> \
         <img id='cardLeft' class='card' src='./games/{0}/CardL.png' height='262' width='187'/> \
         <img id='cardRight' class='card' src='./games/{0}/CardR.png' height='262' width='187'/> \
         <img id='cardCenter' class='card' src='./games/{0}/CardC.png' height='262' width='187'/> \
@@ -16,7 +15,7 @@ var gameHtml = " \
         <div id='text{0}'>\
             <p id='blip{0}'>If I had to call a single game my 'magnum opus', it would have to be Vitium. While it is not my best game, it is the one I have put the most time in, and the one I have believed in through the most setbacks. It is an attempt at being a multi-player politcal card game, that allows players to wheel and deal and betray eachother, and that asks the player to embrase the phatasy of being an imoral, selfish crimelord; Vampire: the Eternal struggle for the modern age. It always has been very ambisious, but I have longed believed there is something special it can be that nothing else today is. It has had problems being simple enough to being reasonable to learn. \
                 </p> \
-            <a id='rulebook' class='download' href='./games/{0}/Rulebook.pdf'>Download the Rulebook</a> \
+            <a id='rulebook' class='download' href='./games/{0}/Rulebook.pdf' download>Download the Rulebook</a> \
             <a id='pnp' class='download' href='./games/{0}/Cards.pdf'>Download the Print-and-Play</a> \
         </div> \
     </div> \
@@ -24,14 +23,13 @@ var gameHtml = " \
 ";
 
 var videoGameHtml = " \
-<script src='./games/{0}/portfolio.js'></script> \
 <div id='gameTemplate' class='game'> \
     <div class='about'> \
     <span id='title{0}' class='title'>{0}</span> \
         <p id='blip{0}'>If I had to call a single game my 'magnum opus', it would have to be Vitium. While it is not my best game, it is the one I have put the most time in, and the one I have believed in through the most setbacks. It is an attempt at being a multi-player politcal card game, that allows players to wheel and deal and betray eachother, and that asks the player to embrase the phatasy of being an imoral, selfish crimelord; Vampire: the Eternal struggle for the modern age. It always has been very ambisious, but I have longed believed there is something special it can be that nothing else today is. It has had problems being simple enough to being reasonable to learn. \
             </p> \
-        <a id='exe' class='download' href='./games/{0}/Game.exe'>Download the Game</a> \
-        <a id='link{0}' class='download'>The Game's Itch.io</a> \
+        <a id='exe' class='download' href='./games/{0}/Game.exe' download>Download the Game</a> \
+        <a id='link{0}' class='download'>The Game's Webpage</a> \
     </div> \
 </div> \
 ";
@@ -73,11 +71,21 @@ var games = [
 {
     name: "InstruMENTAL",
     title: "InstruMENTAL",
-    blip: "I haven't designed nearly as many action games over my life as I would have liked, but I have done a few and this is one I am proud of. It's a little game jam game built around the mechanic that's each player's projectiles are waves that grow as they disceminate and echo around the room. I am happy with how simple and exciting it is, and how much design space it offers.",
+    blip: "I haven't designed nearly as many action games over my life as I would have liked, but I have done a few and I am proud of them. This one I think is particularly well done. It's a little game jam game built around the mechanic that's each player's projectiles are waves that grow as they disceminate and echo around the room. I am happy with how simple and exciting it is, and how much design space it offers.",
     html: videoGameHtml,
     link: "https://github.com/Bradsta/CrescendoConflict",
 }
 ];
+
+// returns if a url is an actual file
+// from: https://stackoverflow.com/questions/3646914/how-do-i-check-if-file-exists-in-jquery-or-pure-javascript
+function checkUrl(url){
+    var http = new XMLHttpRequest();
+    http.open('HEAD', url, false);
+    alert(url)
+    http.send();
+    return http.status!=404;
+}
 
 // add in title and blip for the JS file
 function loadGameText(game, gamesDiv){
@@ -91,6 +99,25 @@ function loadGameText(game, gamesDiv){
     // set the link, if there is one
     if("link" in game){
         document.getElementById("link"+game.name).setAttribute("href",game.link);
+    }
+    // hide hands if card images don't exist
+    var hand = document.getElementById("hand"+game.name)
+    if(hand){
+        var imgs = hand.getElementsByTagName("img")
+        for(var i = 0; i < imgs.length; i++){
+            // wait for image to fail to load, then turn off display
+            imgs[i].onerror = function() {
+                hand.style.display = "none";
+            };
+        }
+    }
+    // hide links that don't lead anywhere for a given game
+    var gameElement = document.getElementById("gameTemplate"+game.name)
+    var links = gameElement.getElementsByTagName("a")
+    for(var i = 0; i < links.length; i++){
+        if(!checkUrl(links[i].href)){
+            links[i].style.display = none;
+        }
     }
 }
 
