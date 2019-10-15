@@ -48,3 +48,16 @@ function end_temp_expand(target){
 function end_temp_expand_id(target_id){
     end_temp_expand(document.getElementById(target_id));
 }
+
+// SHRINK
+
+// stores shrink_object : bool_shrunk
+var cached_shrink = {};
+
+function toggle_shrink(target, percent_shrink){
+    var size_mod = percent_shrink
+    if(target in cached_shrink && cached_sktarget[target])
+        size_mod = 1/percent_shrink
+    }
+    target.
+}

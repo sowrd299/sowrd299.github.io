@@ -1,3 +1,5 @@
+// REQUIRES COLLAPSIBLE
+
 // constants
 var gameHtml = " \
 <script src='./games/{0}/portfolio.js'></script> \
@@ -9,9 +11,9 @@ var gameHtml = " \
     </div> \
     <div class='about'> \
         <span id='title{0}' class='title'>{0}</span> \
-        <button class='game_collapse' onclick='toggle_collapse_id(\"text_{0}\")'>\
+        <button class='game_collapse' onclick='toggle_collapse_id(\"text{0}\")'>\
             V</button>\
-        <div id='text_{0}'>\
+        <div id='text{0}'>\
             <p id='blip{0}'>If I had to call a single game my 'magnum opus', it would have to be Vitium. While it is not my best game, it is the one I have put the most time in, and the one I have believed in through the most setbacks. It is an attempt at being a multi-player politcal card game, that allows players to wheel and deal and betray eachother, and that asks the player to embrase the phatasy of being an imoral, selfish crimelord; Vampire: the Eternal struggle for the modern age. It always has been very ambisious, but I have longed believed there is something special it can be that nothing else today is. It has had problems being simple enough to being reasonable to learn. \
                 </p> \
             <a id='rulebook' class='download' href='./games/{0}/Rulebook.pdf'>Download the Rulebook</a> \
