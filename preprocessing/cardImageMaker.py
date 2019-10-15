@@ -3,6 +3,8 @@ Creates propperly formatted png images of cards
 from a PDF of cards for a game
 '''
 
+# TODO: lists of image path str's should be wrapped in a class for abstraction
+
 import os, subprocess, random, io
 from PIL import Image
 
@@ -73,7 +75,7 @@ e.g. the pages after croping images from them
 '''
 def remove_temp_images(image_paths):
     for image in image_paths:
-        os.remove(image_paths)
+        os.remove(image)
 
 # some basic test code
 if __name__ == '__main__':
