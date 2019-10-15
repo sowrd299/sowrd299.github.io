@@ -116,7 +116,7 @@ function loadGameText(game, gamesDiv){
     var links = gameElement.getElementsByTagName("a")
     for(var i = 0; i < links.length; i++){
         if(!checkUrl(links[i].href)){
-            links[i].style.display = none;
+            links[i].style.display = "none";
         }
     }
 }
