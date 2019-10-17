@@ -1,8 +1,11 @@
-// this makes all of the "topics" into collapsible sections
 // originally used in my Educ 124 website project; github https://github.com/sowrd299/LangSite
 
 // collapses or un-collapses the specified object
 function toggle_collapse(target){
+    if(target.getAttribute("data-collapsible") == "false"){
+        // only effect elements marked as collapsible
+        return
+    }
     if(target in cached_collapse_status){
         // handle interacting with temp expansion
         if(cached_collapse_status[target] === "none"){
@@ -55,9 +58,8 @@ function end_temp_expand_id(target_id){
 var cached_shrink = {};
 
 function toggle_shrink(target, percent_shrink){
-    var size_mod = percent_shrink
-    if(target in cached_shrink && cached_sktarget[target])
-        size_mod = 1/percent_shrink
+    var size_mod = percent_shrink;
+    if(target in cached_shrink && cached_sktarget[target]){
+        size_mod = 1/percent_shrink;
     }
-    target.
 }

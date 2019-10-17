@@ -3,16 +3,16 @@
 // constants
 var gameHtml = " \
 <div id='gameTemplate{0}' class='game'> \
-    <div id='hand{0}' class='sampleHand'> \
+    <div id='hand{0}' class='sampleHand' data-collapsible='true'> \
         <img id='cardLeft' class='card' src='./games/{0}/CardL.png' height='262' width='187'/> \
         <img id='cardRight' class='card' src='./games/{0}/CardR.png' height='262' width='187'/> \
         <img id='cardCenter' class='card' src='./games/{0}/CardC.png' height='262' width='187'/> \
     </div> \
     <div class='about'> \
         <span id='title{0}' class='title'>{0}</span> \
-        <button class='game_collapse' onclick='toggle_collapse_id(\"text{0}\")'>\
+        <button class='game_collapse' onclick='toggle_collapse_id(\"text{0}\"); toggle_collapse_id(\"hand{0}\");'>\
             V</button>\
-        <div id='text{0}'>\
+        <div id='text{0}' data-collapsible='true'>\
             <p id='blip{0}'>If I had to call a single game my 'magnum opus', it would have to be Vitium. While it is not my best game, it is the one I have put the most time in, and the one I have believed in through the most setbacks. It is an attempt at being a multi-player politcal card game, that allows players to wheel and deal and betray eachother, and that asks the player to embrase the phatasy of being an imoral, selfish crimelord; Vampire: the Eternal struggle for the modern age. It always has been very ambisious, but I have longed believed there is something special it can be that nothing else today is. It has had problems being simple enough to being reasonable to learn. \
                 </p> \
             <a id='rulebook' class='download' href='./games/{0}/Rulebook.pdf' download>Download the Rulebook</a> \
@@ -25,11 +25,15 @@ var gameHtml = " \
 var videoGameHtml = " \
 <div id='gameTemplate' class='game'> \
     <div class='about'> \
-    <span id='title{0}' class='title'>{0}</span> \
-        <p id='blip{0}'>If I had to call a single game my 'magnum opus', it would have to be Vitium. While it is not my best game, it is the one I have put the most time in, and the one I have believed in through the most setbacks. It is an attempt at being a multi-player politcal card game, that allows players to wheel and deal and betray eachother, and that asks the player to embrase the phatasy of being an imoral, selfish crimelord; Vampire: the Eternal struggle for the modern age. It always has been very ambisious, but I have longed believed there is something special it can be that nothing else today is. It has had problems being simple enough to being reasonable to learn. \
-            </p> \
-        <a id='exe' class='download' href='./games/{0}/Game.exe' download>Download the Game</a> \
-        <a id='link{0}' class='download'>The Game's Webpage</a> \
+        <span id='title{0}' class='title'>{0}</span> \
+        <button class='game_collapse' onclick='toggle_collapse_id(\"text{0}\"); toggle_collapse_id(\"hand{0}\");'>\
+            V</button>\
+        <div id='text{0}' data-collapsible='true'>\
+            <p id='blip{0}'>If I had to call a single game my 'magnum opus', it would have to be Vitium. While it is not my best game, it is the one I have put the most time in, and the one I have believed in through the most setbacks. It is an attempt at being a multi-player politcal card game, that allows players to wheel and deal and betray eachother, and that asks the player to embrase the phatasy of being an imoral, selfish crimelord; Vampire: the Eternal struggle for the modern age. It always has been very ambisious, but I have longed believed there is something special it can be that nothing else today is. It has had problems being simple enough to being reasonable to learn. \
+                </p> \
+            <a id='exe' class='download' href='./games/{0}/Game.exe' download>Download the Game</a> \
+            <a id='link{0}' class='download'>The Game's Webpage</a> \
+        </div> \
     </div> \
 </div> \
 ";
@@ -78,13 +82,29 @@ var games = [
 ];
 
 // returns if a url is an actual file
-// from: https://stackoverflow.com/questions/3646914/how-do-i-check-if-file-exists-in-jquery-or-pure-javascript
 function checkUrl(url){
-    var http = new XMLHttpRequest();
-    http.open('HEAD', url, false);
-    alert(url)
-    http.send();
-    return http.status!=404;
+    url_parts = url.split("/")
+    // for HTTP hosted webpages
+    // from: https://stackoverflow.com/questions/3646914/how-do-i-check-if-file-exists-in-jquery-or-pure-javascript
+    if(url_parts[0] == "http:" || url_parts[0] == "https:"){
+        var http = new XMLHttpRequest();
+        http.open('HEAD', url, false);
+        alert(url)
+        http.send();
+        return http.status!=404;
+    }
+    // for local testing
+    if(url_parts[0] == "file:"){
+        // todo: do something
+        return true;
+    }
+}
+
+// prevents an element from rendering;
+// made function to deal with other issues like collapsibility
+function hide(element){
+    element.style.display = "none";
+    element.setAttribute("data-collapsible", "false");
 }
 
 // add in title and blip for the JS file
@@ -107,7 +127,7 @@ function loadGameText(game, gamesDiv){
         for(var i = 0; i < imgs.length; i++){
             // wait for image to fail to load, then turn off display
             imgs[i].onerror = function() {
-                hand.style.display = "none";
+                hide(hand);
             };
         }
     }
@@ -116,7 +136,7 @@ function loadGameText(game, gamesDiv){
     var links = gameElement.getElementsByTagName("a")
     for(var i = 0; i < links.length; i++){
         if(!checkUrl(links[i].href)){
-            links[i].style.display = "none";
+            hide(links[i]);
         }
     }
 }
