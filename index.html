@@ -1,4 +1,5 @@
 <!DOCTYPE htm>
+
 <head>
     <meta charset="UTF-8"/>
     <link rel="stylesheet" type="text/css" href="./src/css/siteStyle.css"/>
@@ -6,12 +7,27 @@
     <script src="./src/js/collapsible.js"></script>
     <script src="./src/js/games.js"></script>
 </head>
+
 <body>
+
+<!-- TOP BAR -->
 <div class="topbar">
     <span id="title">Ryan N. Ward's Game Portfolio</span>
 </div>
-<!-- a buffer to prevent the top bar for overlapping anything -->
+<!-- a BUFFER to prevent the top bar for overlapping anything -->
 <div style="height: 10%"></div>
+
+<!-- INTRO AREA -->
+<div class="intro">
+    <h1>Games I Have Made</h1> 
+    <p>Here I've currated a small number of my favorite games that I've made of the years. While not every game 
+        was selected because it represents the best of what I can do, every game selected to representing something
+        I am proud of. Some of them represent something weird and interesting that I tried, some of these games
+        represent major lesson they taught me as a designer, and some of them I just like a lot.
+    </p>
+</div>
+
+<!-- THE GAMES TEHMSELVES -->
 <!-- TODO: implement being colaspible later -->
 <!-- <button class="collapsible">Customizable Card Games</button> -->
 <div class="collaspArea">
@@ -19,8 +35,11 @@
     <div id="games">
     </div>
 </div>
-<!-- go ahead and load the games -->
 <script>
+    // load the games
     populateGames();
+    // start with the games collapsed
+    toggle_collapse_children(document);
 </script>
+
 </body>

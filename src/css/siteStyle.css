@@ -13,3 +13,13 @@ body{
     padding: 16px;
     z-index: 100;
 }
+
+.intro{
+    margin-left: 3%;
+    margin-right: 3%;
+}
+
+p{
+    font-size: 14pt;
+    line-height: 1.6;
+}

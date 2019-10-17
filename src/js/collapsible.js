@@ -27,6 +27,14 @@ function toggle_collapse_id(target_id){
     toggle_collapse(document.getElementById(target_id));
 }
 
+function toggle_collapse_children(parent_element){
+    var elements = parent_element.querySelectorAll("[data-collapsible=true]");
+    alert(elements.length);
+    elements.forEach(element => {
+        toggle_collapse(element);
+    });
+}
+
 // TEMP EXPAND
 
 // a dict of temp_expanded_object : cached status

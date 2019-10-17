@@ -1,6 +1,7 @@
 // REQUIRES COLLAPSIBLE
 
 // constants
+// TODO: make collapse buttons auto-scroll to that section
 var gameHtml = " \
 <div id='gameTemplate{0}' class='game'> \
     <div id='hand{0}' class='sampleHand' data-collapsible='true'> \
@@ -23,7 +24,7 @@ var gameHtml = " \
 ";
 
 var videoGameHtml = " \
-<div id='gameTemplate' class='game'> \
+<div id='gameTemplate{0}' class='game'> \
     <div class='about'> \
         <span id='title{0}' class='title'>{0}</span> \
         <button class='game_collapse' onclick='toggle_collapse_id(\"text{0}\"); toggle_collapse_id(\"hand{0}\");'>\
@@ -57,7 +58,7 @@ var games = [
 {
     name: "ChildhoodFears",
     title: "Facing your Childhood Fears: the Card Game",
-    blip: "Childhood Fears started as a joke. Back in freshman year, I designed an RPG called \"Light the Way\", about a young girl doing battle with the embodiments of her fears. The design of that game focused on blending horror game tricks and empowerment fantasy techniques to create the feeling of conquring one's fears, but the game project itself died due to production issues. Three years later, the joke of \"Light the Way: the Card Game\" came up, and this is my attempt to deliever on that pitch. It also experiments with giving the player's indipendent win conditions, meaning both players, one player, or no players might wind up winning. I like how this creates a path of discovery from players, as they go from bickering to delaying victory to help the other player win, but I am not convinced it is meaningfully distinct enough yet from conventional co-op. The game currently does not sell it's horror element as well as I want it to; I want to attempt versing the roll of the \"chapter\" cards from blessings with a strategic draw back to something to more unambigiously fear. The problem with that is that the game currently depends on players being willing to play them. I also worry about finding an system to scale difficulty level appropriately for replayability. Balancing the player against the enemy appropriately has already been a major issue in earlier versions of the game." ,
+    blip: "Childhood Fears started as a joke. Back in freshman year, I designed an RPG called \"Light the Way\", about a young girl doing battle with the embodiments of her fears. The design of that game focused on blending horror game tricks and empowerment fantasy techniques to create the feeling of conquring one's fears, but the game project itself died due to production issues. Three years later, the joke of \"Light the Way: the Card Game\" came up, and this is my attempt to deliever on that pitch. It also experiments with giving the player's indipendent win conditions, meaning both players, one player, or no players might wind up winning. I like how this creates a path of discovery for players, as they go from bickering to delaying victory to help the other player win, but I am not convinced it is meaningfully distinct enough yet from conventional co-op. The game currently does not sell it's horror element as well as I want it to; I want to attempt reversing the roll of the \"chapter\" cards from blessings with a strategic draw back to something to more unambigiously fear. The problem with that is that the game currently depends on players being willing to play them. I also worry about finding an system to scale difficulty level appropriately for replayability. Balancing the player against the enemy appropriately has already been a major issue in earlier versions of the game." ,
     html: gameHtml
 },
 {
@@ -69,7 +70,7 @@ var games = [
 {
     name: "Thirteen",
     title: "Thirteen Princes'",
-    blip: "Thirteen was an earlier attempt at making a game that prioritized being simple and approachable, while not giving up high quality gameplay. I gave it a lighter, friendlier horror theme, though this did not come accross in gameplay as well as I wanted it to, nor did it really have to. The biggest problem it has it has had has been overly favoring bigger \"beings\" in combat and outright punishing players for having small beings in play. I have made a few revisions over the years, though those changed to much and lost what made the game worth developing in the fist place.",
+    blip: "Thirteen was an earlier attempt at making a game that prioritized being simple and approachable. I gave it a lighter, friendlier horror theme, though this did not come accross in gameplay as well as I wanted it to, nor did it really have to. The biggest problem it has had has been overly favoring bigger \"beings\" in combat and outright punishing players for having small beings in play. I have made a few revisions over the years, though those changed too much and lost what made the game worth developing in the fist place.",
     html: gameHtml
 },
 {
@@ -89,7 +90,6 @@ function checkUrl(url){
     if(url_parts[0] == "http:" || url_parts[0] == "https:"){
         var http = new XMLHttpRequest();
         http.open('HEAD', url, false);
-        alert(url)
         http.send();
         return http.status!=404;
     }
@@ -135,7 +135,8 @@ function loadGameText(game, gamesDiv){
     var gameElement = document.getElementById("gameTemplate"+game.name)
     var links = gameElement.getElementsByTagName("a")
     for(var i = 0; i < links.length; i++){
-        if(!checkUrl(links[i].href)){
+        // force excludes checking on external links
+        if(links[i].id != "link"+game.name && !checkUrl(links[i].href)){
             hide(links[i]);
         }
     }
