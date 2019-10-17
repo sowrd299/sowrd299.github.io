@@ -90,14 +90,14 @@
 }
 
 /* DESKTOP */
-@media screen and (min-width: 800px){
+@media screen and (min-width: 900px){
     .game{
         width: 60%;
     }
 }
 
 /* MOBILE */
-@media only screen and (max-width: 800px){
+@media only screen and (max-width: 900px){
     .game{
         width: 80%;
     }
