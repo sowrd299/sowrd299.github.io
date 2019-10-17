@@ -6,7 +6,7 @@
     margin-bottom: 3.75%;
     margin-top: 3.75%;
     border-radius: 8px;
-    width: 60%;
+    /* width platform dependent */
 }
 
 /* animated hand-fanning */
@@ -89,8 +89,16 @@
     border: 0px;
 }
 
+/* DESKTOP */
+@media screen and (min-width: 800px){
+    .game{
+        width: 60%;
+    }
+}
+
+/* MOBILE */
 @media only screen and (max-width: 800px){
     .game{
-        width: 100%;
+        width: 80%;
     }
 }

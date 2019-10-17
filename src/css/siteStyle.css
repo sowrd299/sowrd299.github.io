@@ -20,10 +20,18 @@ body{
 }
 
 p{
-    font-size: 14pt;
+    /* font-size platform dependent */
     line-height: 1.6;
 }
 
+/* DESKTOP */
+@media screen and (min-width:900px){
+    p{
+        font-size: 14pt;
+    }
+}
+
+/* MOBILE */
 @media only screen and (max-width:800px){
     p{
         font-size: 16pt;
