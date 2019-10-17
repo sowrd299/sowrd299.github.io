@@ -11,8 +11,13 @@ var gameHtml = " \
     </div> \
     <div class='about'> \
         <span id='title{0}' class='title'>{0}</span> \
-        <button class='game_collapse' onclick='toggle_collapse_id(\"text{0}\"); toggle_collapse_id(\"hand{0}\");'>\
-            V</button>\
+        <button class='gameCollapse' onclick='toggle_collapse_id(\"text{0}\"); toggle_collapse_id(\"hand{0}\");'>\
+            <svg height='32' width='32'>\
+                <polygon points='0,0, 16,14 32,0 32,16 16,32, 0,16' \
+                    style='fill:rgb(128,180,128);skroke:rgb(255,255,255);stroke-width:0'\
+                />\
+            </svg>\
+        </button>\
         <div id='text{0}' data-collapsible='true'>\
             <p id='blip{0}'>If I had to call a single game my 'magnum opus', it would have to be Vitium. While it is not my best game, it is the one I have put the most time in, and the one I have believed in through the most setbacks. It is an attempt at being a multi-player politcal card game, that allows players to wheel and deal and betray eachother, and that asks the player to embrase the phatasy of being an imoral, selfish crimelord; Vampire: the Eternal struggle for the modern age. It always has been very ambisious, but I have longed believed there is something special it can be that nothing else today is. It has had problems being simple enough to being reasonable to learn. \
                 </p> \
@@ -27,7 +32,7 @@ var videoGameHtml = " \
 <div id='gameTemplate{0}' class='game'> \
     <div class='about'> \
         <span id='title{0}' class='title'>{0}</span> \
-        <button class='game_collapse' onclick='toggle_collapse_id(\"text{0}\"); toggle_collapse_id(\"hand{0}\");'>\
+        <button class='gameCollapse' onclick='toggle_collapse_id(\"text{0}\"); toggle_collapse_id(\"hand{0}\");'>\
             V</button>\
         <div id='text{0}' data-collapsible='true'>\
             <p id='blip{0}'>If I had to call a single game my 'magnum opus', it would have to be Vitium. While it is not my best game, it is the one I have put the most time in, and the one I have believed in through the most setbacks. It is an attempt at being a multi-player politcal card game, that allows players to wheel and deal and betray eachother, and that asks the player to embrase the phatasy of being an imoral, selfish crimelord; Vampire: the Eternal struggle for the modern age. It always has been very ambisious, but I have longed believed there is something special it can be that nothing else today is. It has had problems being simple enough to being reasonable to learn. \
