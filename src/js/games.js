@@ -62,7 +62,7 @@ var games = [
 {
     name: "Reapers",
     title: "Reapers",
-    blip: "Reapers is an attempt to incorpate a handleful of mechanics from modern CCG's that I particularly like, such as persistent resources and deckbuilding centered around specific characters, and modern modern fantasy theme. The game is a medium-heavy strategy game, that prioritizes being strategic, and thematically compelling. The biggest problem it it is currently facing is the power of the Malakhim; while tthese cards have a roll to play in progressing the game through mid, early and late game, too often the player who draws more Malakhim also wins. I hope to find a satisfactory system for playing Malakhim that is more consistent than drawing them from the deck. The game also has a length issue; it tends to overstay it's welcome somewhat, but this seems mostly to be a matter of finding the sweet spot for the win condition.", 
+    blip: "Reapers is an attempt to incorpate a handleful of mechanics from modern CCG's that I particularly like, such as persistent resources and deckbuilding centered around specific characters, and a modern fantasy theme. The game is a medium-heavy strategy game that prioritizes being tactical and thematically compelling. The biggest problem it it is currently facing is the power of the Malakhim mechanic; while these cards have a roll to play in progressing the game through mid, early and late game, too often the player who draws more Malakhim also wins. I hope to find a satisfactory system for playing Malakhim that is more consistent than drawing them from the deck. The game also has a length issue; it tends to overstay it's welcome somewhat, but this seems mostly to be a matter of finding the sweet spot for the win condition.", 
     html: gameHtml
 },
 {
@@ -74,7 +74,7 @@ var games = [
 {
     name: "Allocator",
     title: "Allocator",
-    blip: "This game started with the marriage of two mechanics I wanted to try out: having cards server different roles based on where the player placed them, and having a maximum amount of card-power the player can have across the board. The rest of the game flowed from this basic premise; for example, once I realized that efficiency of cards on the board to point on the board would be a big part of the gameplay, I starting learning into the idea that card advantage is central to this games gamestate, such as with the boost mechanic. While it is perfectly serviceable, the Develop area has never been quite as impactful as I have wanted it to be, and allocating between attack and defense tends to be a bit on the straight-forward side.",
+    blip: "This game started with the marriage of two mechanics I wanted to try out: having cards serve different roles based on where the player placed them, and having a maximum amount of card-power the player can have across the board. The rest of the game flowed from this basic premise; for example, once I realized that the efficiency of number cards on the board to points on the board would be a big part of the gameplay, I starting learning into the idea that card advantage is central to this game's gamestate, such as with the boost mechanic. While it is perfectly serviceable, the Develop area has never been quite as impactful as I have wanted it to be, and allocating between attack and defense tends to be a bit on the straight-forward side.",
     html: gameHtml
 },
 {
