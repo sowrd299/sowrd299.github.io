@@ -15,6 +15,11 @@ class Card {
         ctx.fillRect(this.x, this.y, this.w, this.h);
     }
 
+    // get's the sorting layer of the drawable
+    getSortingLayer(){
+        return 1;
+    }
+
     // moves by the given offset
     move(x, y){
         this.x += x;
@@ -52,6 +57,10 @@ class SnapPoint{
     draw(ctx){
         ctx.fillStyle = this.color;
         ctx.fillRect(this.x - this.w / 2, this.y - this.h / 2, this.w, this.h);
+    }
+
+    getSortingLayer(){
+        return -1;
     }
 
     // snaps a card to this snap point
@@ -150,6 +159,9 @@ class CanvasManager{
     // draws the boards state
     // takes a list of objects to render, and the context
     draw(drawables){
+        drawables.sort( function(a,b){
+            return a.getSortingLayer() - b.getSortingLayer();
+        });
         this.clear();
         drawables.forEach(drawable => {
             drawable.draw(this.ctx);
@@ -164,11 +176,15 @@ class CanvasManager{
 function beginSim(canvas){
 
     // TESTING 
-    var card = new Card(15, 30, 125, 175);
-    var cards = [ card ];
+    var cards = [
+        new Card(15, 30, 125, 175),
+        new Card(400, 300, 125, 175)
+    ];
 
-    var snapPoint = new SnapPoint(300, 200);
-    var snapPoints = [ snapPoint ];
+    var snapPoints = [ 
+        new SnapPoint(300, 200),
+        new SnapPoint(500, 200)
+    ];
 
     var drawables = cards.concat(snapPoints);
 
