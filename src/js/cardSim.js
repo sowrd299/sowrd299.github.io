@@ -1,4 +1,5 @@
 // a class to represent a card being simulated
+// implements drawable
 class Card {
 
     constructor(x, y, w, h){
@@ -36,6 +37,37 @@ class Card {
     }
 
 }
+
+// a point that cards can snap to
+// implements drawable
+class SnapPoint{
+
+    constructor(x, y){
+        this.x = x;
+        this.y = y;
+        this.w = this.h = 10;
+        this.color = "#A01030";
+    }
+
+    draw(ctx){
+        ctx.fillStyle = this.color;
+        ctx.fillRect(this.x - this.w / 2, this.y - this.h / 2, this.w, this.h);
+    }
+
+    // snaps a card to this snap point
+    // ... if appropriate
+    // returns if snap was applied
+    snapCard(card){
+        if(card.isTouchingPoint(this.x, this.y)){
+            card.moveToPoint(this.x, this.y, 0.5, 0.5);
+            return true;
+        }
+        return false;
+    }
+
+}
+
+
 
 // INPUT
 
@@ -135,6 +167,11 @@ function beginSim(canvas){
     var card = new Card(15, 30, 125, 175);
     var cards = [ card ];
 
+    var snapPoint = new SnapPoint(300, 200);
+    var snapPoints = [ snapPoint ];
+
+    var drawables = cards.concat(snapPoints);
+
     // setup the canvas
     var cm = new CanvasManager(canvas);
     var dm = new DragManager(cards);
@@ -144,13 +181,19 @@ function beginSim(canvas){
     }
     canvas.onmousemove = function(event){
         dm.onMouseMove(cm.mousePosToCanvasPos(event));
-        cm.draw(cards);
+        cm.draw(drawables);
     }
     canvas.onmouseup = function(event){
         dm.onMouseUp(cm.mousePosToCanvasPos(event));
-        cm.draw(cards);
+        // apply snap spoints
+        snapPoints.forEach(function(sp){
+            cards.forEach(function(card){
+                sp.snapCard(card);
+            });
+        });
+        cm.draw(drawables);
     }
     
     // TESTING
-    cm.draw(cards);
+    cm.draw(drawables);
 }
