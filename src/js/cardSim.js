@@ -14,10 +14,27 @@ class Card {
         ctx.fillRect(this.x, this.y, this.w, this.h);
     }
 
+    // moves by the given offset
     move(x, y){
         this.x += x;
         this.y += y;
     }
+
+    // moves to the given point
+    // aligns to the give relative point on the card
+    // .... (0,0) is the upper left, (1,1) is the lower right
+    moveToPoint(x, y, xAlign, yAlign){
+        this.x = x - (this.w * xAlign);
+        this.y = y - (this.h * yAlign);
+    }
+
+    // returns whether or not the card is
+    // ...overlapping the given point
+    isTouchingPoint(x, y){
+        return x >= this.x && x <= this.x + this.w &&
+                y >= this.y && y <= this.y + this.h;
+    }
+
 }
 
 // INPUT
@@ -39,22 +56,31 @@ class DragManager{
 
     onMouseDown(event){
         // pickup the card 
-        this.card = this.cards[0]; // TESTING
-        // alternate drag
-        this.xOffset = this.card.x - event.clientX;
-        this.yOffset = this.card.y - event.clientY;
-        // current math
-        this.xStart = event.clientX;
-        this.yStart = event.clientY;
+        for(var i = 0; i < this.cards.length; i++){
+            if(this.cards[i].isTouchingPoint(event.x, event.y)){
+                this.card = this.cards[i]; // TESTING
+                // alternate drag
+                this.xOffset = this.card.x - event.x;
+                this.yOffset = this.card.y - event.y;
+                // current math
+                this.xStart = event.x;
+                this.yStart = event.y;
+                // once we picked up a card, don't pick up another
+                break;
+            }
+        }
     }
 
     onMouseMove(event){
-        this.update(event.clientX, event.clientY);
+        if(this.card)
+            this.update(event.x, event.y);
     }
 
     onMouseUp(event){
-        this.update(event.clientX, event.clientY);
-        this.card = null;
+        if(this.card){
+            this.update(event.x, event.y);
+            this.card = null;
+        }
     }
 
     // updates the card as it is dragged
@@ -67,15 +93,39 @@ class DragManager{
 
 }
 
-// draws the boards state
-// takes a list of cards to render, and the context
-function draw(cards, ctx, w, h){
-    ctx.clearRect(0, 0, w, h)
-    cards.forEach(card => {
-        card.draw(ctx);
-    });
+class CanvasManager{
+
+    constructor(canvas){
+        this.canvas = canvas;
+        this.w = canvas.width;
+        this.h = canvas.height;
+        this.ctx = canvas.getContext("2d");
+    }
+
+    clear(){
+        this.ctx.clearRect(0, 0, this.w, this.h);
+    }
+
+    mousePosToCanvasPos(event){
+        // from https://www.html5canvastutorials.com/advanced/html5-canvas-mouse-coordinates/
+        var rect = this.canvas.getBoundingClientRect();
+        return {
+          x: event.clientX - rect.left,
+          y: event.clientY - rect.top
+        };
+    }
+
+    // draws the boards state
+    // takes a list of objects to render, and the context
+    draw(drawables){
+        this.clear();
+        drawables.forEach(drawable => {
+            drawable.draw(this.ctx);
+        });
+    }
 
 }
+
 
 
 // begins running the sim with the given canvas
@@ -86,23 +136,21 @@ function beginSim(canvas){
     var cards = [ card ];
 
     // setup the canvas
-    var ctx = canvas.getContext("2d");
-    var w = canvas.width;
-    var h = canvas.height;
+    var cm = new CanvasManager(canvas);
     var dm = new DragManager(cards);
 
     canvas.onmousedown = function(event){
-        dm.onMouseDown(event);
+        dm.onMouseDown(cm.mousePosToCanvasPos(event));
     }
     canvas.onmousemove = function(event){
-        dm.onMouseMove(event);
-        draw(cards, ctx, w, h);
+        dm.onMouseMove(cm.mousePosToCanvasPos(event));
+        cm.draw(cards);
     }
     canvas.onmouseup = function(event){
-        dm.onMouseUp(event);
-        draw(cards, ctx, w, h);
+        dm.onMouseUp(cm.mousePosToCanvasPos(event));
+        cm.draw(cards);
     }
     
     // TESTING
-    draw(cards, ctx, w, h);
+    cm.draw(cards);
 }
